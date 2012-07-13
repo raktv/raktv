@@ -117,7 +117,7 @@ $(function(){
 	}
 	
 	try{
-		var socket = io.connect('http://www.raktv.ru:843');
+		var socket = io.connect('http://pipe.raktv.ru');
 	} catch(e) {
 		AddInChat('<p>Ошибка соединения!<br />'+e.name+': '+e.message+'</p>');
 	} finally {
