@@ -108,13 +108,17 @@ $(function(){
 	}
 	
 	var AddMembr = function ( id, name ){
-		$("#membrs").append("<span id='m"+id+"'>&nbsp;&nbsp;"+name+"</span> ");
+		$("#membrs").append("<span id='"+id+"'>&nbsp;&nbsp;"+name+"</span> ");
 	}
 	
 	var socket;
 	
 	try{
-		socket = io.connect('http://pipe.raktv.ru');
+		socket = io.connect('http://pipe.raktv.ru',{
+			'reconnect': true,
+			'reconnection delay': 2000,
+			'max reconnection attempts': 30
+		});
 	} catch(e) {
 		AddInChat('<p>Ошибка соединения!<br />'+e.name+': '+e.message+'</p>');
 		$("#msgout").prop('disabled', true);
@@ -123,6 +127,7 @@ $(function(){
 	var SENDBUFF = "";
 	
 	socket.on('connect', function () {
+		AddInChat("<p>Вы вошли в чат.</p>");
 		$("#msgout").prop('disabled', false);
 	});
 	
@@ -184,7 +189,7 @@ $(function(){
 				$.each(msg.chatarg, function(index, value) { AddInChat(value); });
 			break
 			case 'deletem':
-				$("#m"+msg.id).remove();
+				$("#"+msg.id).remove();
 			break
 			case 'addm':
 				AddMembr(msg.id,msg.name);
@@ -194,7 +199,7 @@ $(function(){
 				$("#captnm").html(msg.caption);
 				$("#linksite").attr('href', msg.link);
 				$("#linksite").html(msg.site);
-				$.each(msg.membrs, function(index, value) { AddMembr(value,index); });
+				$.each(msg.membrs, function(index, value) { AddMembr(index, value); });
 				$.each(msg.chat, function(index, value) { if(value != '') AddInChat(value); });
 				$("#player").html(msg.player);
 			break
