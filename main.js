@@ -207,7 +207,7 @@ $(function(){
 	});
 	
 	socket.on('reconnecting', function () {
-		AddInChat('<p>Потерянна связь с чатом. Переподключаемся.</p>');
+		AddInChat('<p>Потеряна связь с чатом. Переподключаемся.</p>');
 		$("#membrs").empty();
 	});
 	
