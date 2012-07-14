@@ -26,14 +26,14 @@ jQuery.fn.extend({
 
 $(function(){
 	var GLBLSND=false;
+	
+	$("#noscr").remove();
+	
 	var STYLES = [
 		{ 'class':'lc', 'name':'светлый'},
 		{ 'class':'dc', 'name':'темный' },
 		{ 'class':'gc', 'name':'гламур' }
 	];
-	
-	$('#scroll').tinyscrollbar();
-	$('#scroll').tinyscrollbar_update('bottom');
 	
 	var SetStyle = function ( id ){
 		document.cookie="style="+id+"; domain=raktv.ru; path=/; expires=Mon, 01-Jan-2018 00:00:00 GMT";
@@ -57,19 +57,12 @@ $(function(){
 	
 	$("#chst").bind("click", function(e){
 		var currStyleID = parseInt($(this).attr('slasid'));
-		
 		if( typeof(STYLES[currStyleID+2]) == 'undefined'){
 			SetStyle(0);
 		}else{
 			SetStyle(currStyleID+1);
 		}
 	});
-	
-	var CropMaxLen = function(){
-		var max = parseInt($("#msgout").attr('maxlength'));
-		if($("#msgout").val().length > max)
-			$("#msgout").val($("#msgout").val().substr(0, $("#msgout").attr('maxlength')));
-	};
 	
 	$("#shhi").bind("click", function(e){
 		if($("#membersbox").is(":visible")){
@@ -82,25 +75,27 @@ $(function(){
 	});
 	
 	$("#sml img").bind("click", function(e){
-		$("#msgout").insertAtCaret($(this).attr("tid"));
-		CropMaxLen();
+		if( ($("#msgout").val().length + $(this).attr("tid").length) <= parseInt($("#msgout").attr('maxlength')) )
+			$("#msgout").insertAtCaret($(this).attr("tid"));
 	});
 	
 	$("#smiles").bind("click", function(e){
 		$("#sml").toggle();
+		$("#msgout").focus();
 	});
-	
-	$(window).resize(function() {
-		$('#scroll').tinyscrollbar_update('bottom');
-	});
-	
 	
 	var find_nick = new RegExp('^\[[a-zA-Zа-яА-ЯеЁ0-9]+\]\,?');
 	
 	$("#membrs span, #chat span").live("click", function(e){
 		var curr_msg = $("#msgout").val();
-		if(find_nick.test(curr_msg)) curr_msg = curr_msg.replace(/^\[[a-zA-Zа-яА-ЯеЁ0-9]+\]\,?/,'');
+		if(find_nick.test(curr_msg)) curr_msg = curr_msg.replace(find_nick,'');
 		$("#msgout").val("["+$.trim($(this).text())+"]," + curr_msg);
+	});
+	
+	$('#scroll').tinyscrollbar();
+	
+	$(window).resize(function() {
+		$('#scroll').tinyscrollbar_update('bottom');
 	});
 	
 	var AddInChat = function( msg ){
@@ -120,17 +115,19 @@ $(function(){
 		var socket = io.connect('http://pipe.raktv.ru');
 	} catch(e) {
 		AddInChat('<p>Ошибка соединения!<br />'+e.name+': '+e.message+'</p>');
-	} finally {
-		$("#noscr").remove();
-		$('#scroll').tinyscrollbar_update('bottom');
 	}
-
+	
+	var SENDBUFF = "";
+	
 	socket.on('connect', function () {
-							
+		
 		$('#msgout').keydown(function (e) {
 			if (e.keyCode == 13 && GLBLSND==false) {
 				GLBLSND=true;
-				socket.send($("#msgout").val());
+				SENDBUFF = $("#msgout").val();
+				$("#msgout").val("");
+				socket.send(SENDBUFF);
+				$("#msgout").prop('disabled', true);
 			}
 		});
 		
@@ -140,17 +137,19 @@ $(function(){
 					AddInChat(msg.text);
 				break
 				case 'msganswr':
+					$("#msgout").prop('disabled', false);
 					if(msg.status == "error") {
 							AddInChat("<p>Ваше сообщение не отправлено. Детали: "+msg.detail+"</p>");
-							GLBLSND=false;
+							$("#msgout").val(SENDBUFF);
+							$("#msgout").focus();
 					} else if(msg.status == "ok") {
 							AddInChat(msg.text);
 							$("#msgout").val("");
-							GLBLSND=false;
 					}else{
 						AddInChat("<p>Странная ошибка. Попробуйте еще раз.</p>");
-						GLBLSND=false;
+						$("#msgout").val(SENDBUFF);
 					}
+					GLBLSND=false;
 				break
 				case 'title':
 					$(document).attr('title', msg.text);
@@ -161,16 +160,18 @@ $(function(){
 				case 'player':
 					$("#player").html(msg.text);
 				break
-				case 'thread':
-					$("#linkthread").attr('href', msg.link);
-					$("#linkthread").html(msg.name);
-					AddInChat('<p>Обновлена ссылка на тред.</p>');
+				case 'site':
+					$("#linksite").attr('href', msg.link);
+					$("#linksite").html(msg.name);
+				break
+				case 'style':
+					SetStyle(parseInt(msg.style));
 				break
 				case 'refresh':
-					document.location.reload();
+					window.location.reload();
 				break
 				case 'gosite':
-					document.location.href=msg.link;
+					window.location.href=msg.link;
 				break
 				case 'clear':
 					$("#chat > div").each(function() { $(this).empty(); });
@@ -188,8 +189,8 @@ $(function(){
 				case 'firstmsg':
 					$(document).attr('title', msg.title);
 					$("#captnm").html(msg.caption);
-					$("#linkthread").attr('href', msg.link);
-					$("#linkthread").html(msg.thread);
+					$("#linksite").attr('href', msg.link);
+					$("#linksite").html(msg.site);
 					$.each(msg.membrs, function(index, value) { AddMembr(value,index); });
 					$.each(msg.chat, function(index, value) { if(value != '') AddInChat(value); });
 					$("#player").html(msg.player);
