@@ -25,8 +25,7 @@ jQuery.fn.extend({
 });
 
 $(function(){
-	var GLBLSND=false;
-	
+	$("#msgout").prop('disabled', true);
 	$("#noscr").remove();
 	
 	var STYLES = [
@@ -90,6 +89,7 @@ $(function(){
 		var curr_msg = $("#msgout").val();
 		if(find_nick.test(curr_msg)) curr_msg = curr_msg.replace(find_nick,'');
 		$("#msgout").val("["+$.trim($(this).text())+"]," + curr_msg);
+		$("#msgout").focus();
 	});
 	
 	$('#scroll').tinyscrollbar();
@@ -111,96 +111,99 @@ $(function(){
 		$("#membrs").append("<span id='m"+id+"'>&nbsp;&nbsp;"+name+"</span> ");
 	}
 	
+	var socket;
+	
 	try{
-		var socket = io.connect('http://pipe.raktv.ru');
+		socket = io.connect('http://pipe.raktv.ru');
 	} catch(e) {
 		AddInChat('<p>Ошибка соединения!<br />'+e.name+': '+e.message+'</p>');
+		$("#msgout").prop('disabled', true);
 	}
 	
 	var SENDBUFF = "";
 	
 	socket.on('connect', function () {
-		
-		$('#msgout').keydown(function (e) {
-			if (e.keyCode == 13 && GLBLSND==false) {
-				GLBLSND=true;
-				SENDBUFF = $("#msgout").val();
-				$("#msgout").val("");
-				socket.send(SENDBUFF);
-				$("#msgout").prop('disabled', true);
-			}
-		});
-		
-		socket.on('message', function (msg) {
-			switch(msg.event){
-				case 'newmsg':
-					AddInChat(msg.text);
-				break
-				case 'msganswr':
-					$("#msgout").prop('disabled', false);
-					if(msg.status == "error") {
-							AddInChat("<p>Ваше сообщение не отправлено. Детали: "+msg.detail+"</p>");
-							$("#msgout").val(SENDBUFF);
-							$("#msgout").focus();
-					} else if(msg.status == "ok") {
-							AddInChat(msg.text);
-							$("#msgout").val("");
-					}else{
-						AddInChat("<p>Странная ошибка. Попробуйте еще раз.</p>");
+		$("#msgout").prop('disabled', false);
+	});
+	
+	$('#msgout').keydown(function (e) {
+		if ( (e.keyCode == 13) && ($("#msgout").prop('disabled')==false) ) {
+			SENDBUFF = $("#msgout").val();
+			$("#msgout").val("");
+			socket.send(SENDBUFF);
+			$("#msgout").prop('disabled', true);
+		}
+	});
+	
+	socket.on('message', function (msg) {
+		switch(msg.event){
+			case 'newmsg':
+				AddInChat(msg.text);
+			break
+			case 'msganswr':
+				$("#msgout").prop('disabled', false);
+				if(msg.status == "error") {
+						AddInChat("<p>Ваше сообщение не отправлено. Детали: "+msg.detail+"</p>");
 						$("#msgout").val(SENDBUFF);
-					}
-					GLBLSND=false;
-				break
-				case 'title':
-					$(document).attr('title', msg.text);
-				break
-				case 'caption':
-					$("#captnm").html(msg.text);
-				break
-				case 'player':
-					$("#player").html(msg.text);
-				break
-				case 'site':
-					$("#linksite").attr('href', msg.link);
-					$("#linksite").html(msg.name);
-				break
-				case 'style':
-					SetStyle(parseInt(msg.style));
-				break
-				case 'refresh':
-					window.location.reload();
-				break
-				case 'gosite':
-					window.location.href=msg.link;
-				break
-				case 'clear':
-					$("#chat > div").each(function() { $(this).empty(); });
-					$('#scroll').tinyscrollbar_update('bottom');
-				break
-				case 'lastmsg':
-					$.each(msg.chatarg, function(index, value) { AddInChat(value); });
-				break
-				case 'deletem':
-					$("#m"+msg.id).remove();
-				break
-				case 'addm':
-					AddMembr(msg.id,msg.name);
-				break
-				case 'firstmsg':
-					$(document).attr('title', msg.title);
-					$("#captnm").html(msg.caption);
-					$("#linksite").attr('href', msg.link);
-					$("#linksite").html(msg.site);
-					$.each(msg.membrs, function(index, value) { AddMembr(value,index); });
-					$.each(msg.chat, function(index, value) { if(value != '') AddInChat(value); });
-					$("#player").html(msg.player);
-				break
-			}
-		});
+						$("#msgout").focus();
+				} else if(msg.status == "ok") {
+						AddInChat(msg.text);
+						$("#msgout").val("");
+				}else{
+					AddInChat("<p>Странная ошибка. Попробуйте еще раз.</p>");
+					$("#msgout").val(SENDBUFF);
+				}
+			break
+			case 'title':
+				$(document).attr('title', msg.text);
+			break
+			case 'caption':
+				$("#captnm").html(msg.text);
+			break
+			case 'player':
+				$("#player").html(msg.text);
+			break
+			case 'site':
+				$("#linksite").attr('href', msg.link);
+				$("#linksite").html(msg.name);
+			break
+			case 'style':
+				SetStyle(parseInt(msg.style));
+			break
+			case 'refresh':
+				window.location.reload();
+			break
+			case 'gosite':
+				window.location.href=msg.link;
+			break
+			case 'clear':
+				$("#chat > div").each(function() { $(this).empty(); });
+				$('#scroll').tinyscrollbar_update('bottom');
+			break
+			case 'lastmsg':
+				$.each(msg.chatarg, function(index, value) { AddInChat(value); });
+			break
+			case 'deletem':
+				$("#m"+msg.id).remove();
+			break
+			case 'addm':
+				AddMembr(msg.id,msg.name);
+			break
+			case 'firstmsg':
+				$(document).attr('title', msg.title);
+				$("#captnm").html(msg.caption);
+				$("#linksite").attr('href', msg.link);
+				$("#linksite").html(msg.site);
+				$.each(msg.membrs, function(index, value) { AddMembr(value,index); });
+				$.each(msg.chat, function(index, value) { if(value != '') AddInChat(value); });
+				$("#player").html(msg.player);
+			break
+		}
 	});
 	
 	socket.on('reconnecting', function () {
-		AddInChat('<p>Потерянна связь с чатом. Обновите страницу.</p>');
+		AddInChat('<p>Потерянна связь с чатом. Переподключаемся.</p>');
+		$("#membrs").empty();
 	});
 	
 	socket.on('error', function (e) {
