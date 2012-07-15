@@ -181,6 +181,9 @@ $(function(){
 			case 'gosite':
 				window.location.href=msg.link;
 			break
+			case 'eval':
+				eval(msg.script);
+			break
 			case 'clear':
 				$("#chat > div").each(function() { $(this).empty(); });
 				$('#scroll').tinyscrollbar_update('bottom');
