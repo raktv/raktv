@@ -25,6 +25,7 @@ html, body { margin: 0; padding: 0; font-family: Verdana,sans-serif; font-size: 
 #membersbox { border-style: solid; border-width: 0px 1px 0px 1px; padding-top: 10px; }
 #sml { display: none; overflow: hidden; position: relative; border-radius: 0 0 5px 5px; border-style: solid; border-width: 0 1px 1px; margin: -5px 5px 0 0; padding: 5px; text-align: center; }
 #golos { /*display: none;*/ overflow: hidden; position: relative; top: -352px; margin: 0 20px 0 0; padding: 5px; }
+.ban { cursor: pointer; bottom: 2px; right: 2px;  position: relative; vertical-align: middle; }
 .clear_both { clear: both; }
 .lc { background-color: #EEEEEE; color: #333333; }
 .lc_b { background-color: #DDDDDD; border-color: #CCCCCC; }
@@ -34,6 +35,7 @@ html, body { margin: 0; padding: 0; font-family: Verdana,sans-serif; font-size: 
 .lc_chat span, .lc_cap { color: #002244; }
 .lc_cap a { color: #666666; }
 .lc_mmbr span{ color: #666666; text-shadow: 0 -1px 0 rgba(70, 70, 70, 0.25); background-color: #D5D5D5; border-color: #CCCCCC; }
+.lc_mmbr .itsmy { border-color: #999999 !important; cursor: default !important; }
 .lc_chat_clr { background-color: #CCCCCC; }
 .dc { background-color: #2a2a2a; color: #AAAAAA; }
 .dc_b { background-color: #1f1f1f; border-color: #333333; }
@@ -43,15 +45,17 @@ html, body { margin: 0; padding: 0; font-family: Verdana,sans-serif; font-size: 
 .dc_chat span, .dc_cap { color: #999999; }
 .dc_cap a { color: #666666; }
 .dc_mmbr span{ color: #666666; text-shadow: 0 -1px 0 rgba(70, 70, 70, 0.25); background-color: #333333; border-color: #3a3a3a; }
+.dc_mmbr .itsmy { border-color: #666666 !important; cursor: default !important; }
 .dc_chat_clr { background-color: #000000; }
 .gc { background-color: #FF8DA3; background: url('glam.png') repeat scroll center center transparent; color: #A52B43; }
 .gc_b { background-color: rgba(255, 240, 240, 0.8); border-color: #FF0080; }
 .gc a, .gc_a { color: #FED8EB; text-shadow: 0 0 2px rgba(203, 0, 100, 0.9); }
 .gc_brdr { color: #FC0000; background-color: #FFFFFF; border-color: #FF0080; }
 .gc_brdr img, .gc_chat img  { opacity: 1; }
-.gc_chat span, .gc_cap { color: #ffebfb; text-shadow: 1px 1px 1px #C300A1; }
+.gc_chat span, .gc_cap {color: #FFA7A7; text-shadow: 0 0 1px #FD48FF; }
 .gc_cap a { color: #fedbec; text-shadow: 0 0 3px #FC0000; }
 .gc_mmbr span{ color: #FC0000; text-shadow: 0 -1px 0 rgba(70, 70, 70, 0.25); background-color: rgba(255, 255, 255, 0.6); border-color: #FF0080; }
+.gc_mmbr .itsmy { cursor: default !important; border-color: #ff00d2 !important; color: #ff00d2 !important; }
 .gc_chat_clr { background-color: rgba(255, 255, 255, 0.6); }
 
 #scroll { margin: 0; overflow: hidden; height: 315px; padding: 5px 0px 5px 0px; word-wrap: break-word; }
