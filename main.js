@@ -171,7 +171,8 @@ $(function(){
 				$("#captnm").html(msg.text);
 			break
 			case 'player':
-				$("#player").html(msg.text);
+				$("#player > object").attr('data',msg.text);
+				$("#player > object").find('param[name="movie"]').val(msg.text);
 			break
 			case 'site':
 				$("#linksite").attr('href', msg.link);
