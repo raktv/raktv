@@ -171,8 +171,7 @@ $(function(){
 				$("#captnm").html(msg.text);
 			break
 			case 'player':
-				$("#player > object").attr('data',msg.text);
-				$("#player > object").find('param[name="movie"]').val(msg.text);
+				swfobject.embedSWF(msg.src, "plrsrc", "640", "360", "11.0.0", false, {}, { allowfullscreen:'true', allowscriptaccess:'always', allownetworking:'all' });
 			break
 			case 'site':
 				$("#linksite").attr('href', msg.link);
@@ -215,9 +214,7 @@ $(function(){
 				$.each(msg.membrs, function(index, value) { AddMembr(index, value); });
 				$.each(msg.chat, function(index, value) { if(value != '') AddInChat(value); });
 				if($("#player > object").attr('data')!=msg.player){
-					$("#player > object").attr('data',msg.player);
-					$("#player > object").find('param[name="movie"]').val(msg.player);
-					$("#player > embed").attr('src',msg.player);
+					swfobject.embedSWF(msg.player, "plrsrc", "640", "360", "11.0.0", false, {}, { allowfullscreen:'true', allowscriptaccess:'always', allownetworking:'all' });
 				}
 			break
 		}

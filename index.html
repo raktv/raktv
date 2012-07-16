@@ -8,6 +8,7 @@
 		<script type="text/javascript" src="jquery.js"></script>
 		<script type="text/javascript" src="scrollbar.js"></script>
 		<script type="text/javascript" src="main.js"></script>
+		<script type="text/javascript" src="swfobject.js"></script>
 		<script type="text/javascript" src="http://pipe.raktv.ru/socket.io/socket.io.js"></script>
 	</head>
 	<body class="lc">
@@ -24,16 +25,7 @@
 				</div>
 				<div id="videochat" class="lc_b">
 					<div id="chatcolor" class="lc_chat_clr">
-						<div id="player">
-							<object width="640" height="360" type="application/x-shockwave-flash" data="">
-								<param name="allowScriptAccess" value="always"></param>
-								<param name="allowFullScreen" value="true"></param>
-								<param name="movie" value=""></param>
-								<param name="wmode" value="transparent"></param>
-								<param name="allowNetworking" value="all"></param>
-								<embed width="640" height="360" type="application/x-shockwave-flash" src="" allowFullScreen="true" allowScriptAccess="always" wmode="transparent" allowNetworking="all" />
-							</object>
-						</div>
+						<div id="player"><div id="plrsrc"></div></div>
 						<div>
 							<div id="scroll">
 								<div class="scrollbar" ><div class="track"><div class="thumb lc_brdr"><div class="end"></div></div></div></div>
