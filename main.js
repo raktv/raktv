@@ -217,6 +217,7 @@ $(function(){
 				if($("#player > object").attr('data')!=msg.player){
 					$("#player > object").attr('data',msg.player);
 					$("#player > object").find('param[name="movie"]').val(msg.player);
+					$("#player > embed").attr('src',msg.player);
 				}
 			break
 		}

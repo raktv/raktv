@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
 	<head>
-		<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+		<meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
 		<title>Загрузка...</title>
 		<link type="image/x-icon" href="favicon.ico" rel="icon" />
 		<link type="text/css" href="style.css" rel="stylesheet" />
@@ -14,13 +14,26 @@
 		<center>
 			<div id="box">
 				<div id="top_title">
-					<div id="caption" class="lc_cap"><span id="captnm">Загрузка заголовка...</span> <a id="linksite" href="/" target="_blank">Загрузка ссылки...</a></div>
-					<div id="mystyle">Стиль: <span id="chst" class="lc_a" slasid="0">светлый</span></div>
+					<div id="caption" class="lc_cap">
+						<span id="captnm">Загрузка заголовка...</span> <a id="linksite" href="/" target="_blank">Загрузка ссылки...</a>
+					</div>
+					<div id="mystyle">
+						Стиль: <span id="chst" class="lc_a" slasid="0">светлый</span>
+					</div>
 					<div class="clear_both"></div>
 				</div>
 				<div id="videochat" class="lc_b">
 					<div id="chatcolor" class="lc_chat_clr">
-						<div id="player"><object height="360" width="640" type="application/x-shockwave-flash" data="raktv.swf"><param name="allowScriptAccess" value="always"></param><param name="allowFullScreen" value="true"></param><param name="movie" value="raktv.swf"></param><param name="wmode" value="transparent"></param><param name="allowNetworking" value="all"></param></object></div>
+						<div id="player">
+							<object width="640" height="360" type="application/x-shockwave-flash" data="raktv.swf">
+								<param name="allowScriptAccess" value="always"></param>
+								<param name="allowFullScreen" value="true"></param>
+								<param name="movie" value="raktv.swf"></param>
+								<param name="wmode" value="transparent"></param>
+								<param name="allowNetworking" value="all"></param>
+								<embed width="640" height="360" type="application/x-shockwave-flash" src="raktv.swf" allowFullScreen="true" allowScriptAccess="always" wmode="transparent" allowNetworking="all" />
+							</object>
+						</div>
 						<div>
 							<div id="scroll">
 								<div class="scrollbar" ><div class="track"><div class="thumb lc_brdr"><div class="end"></div></div></div></div>
@@ -56,7 +69,7 @@
 								<div id="sendmsg" class="lc_brdr">
 									<div id="smiles"></div>
 									<div style="overflow: hidden;">
-										<input type="text" value="" autocomplete="off" id="msgout" maxlength="100" spellcheck="false">
+										<input type="text" value="" autocomplete="off" id="msgout" maxlength="100" spellcheck="false" />
 									</div>
 									<div class="clear_both"></div>
 								</div>
@@ -98,7 +111,9 @@
 					<div id="membrs" class="lc_mmbr"></div>
 					<div class="clear_both"></div>
 				</div>
-				<div id="bot_butt" class="lc_b"><center><div id="shhi" class="lc_brdr">скрыть юзер-панель</div></center></div>
+				<div id="bot_butt" class="lc_b">
+					<center><div id="shhi" class="lc_brdr">скрыть юзер-панель</div></center>
+				</div>
 			</div>
 		</center>
 	</body>
