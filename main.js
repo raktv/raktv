@@ -99,16 +99,20 @@ $(function(){
 		$('#scroll').tinyscrollbar_update('bottom');
 	});
 	
-	var AddInChat = function( msg ){
-		var firstDiv = $("#chat > div:first");
-		firstDiv.hide();
+	var AddInChat = function( msg, pos ){
 		if(MYMOD==1)
 			if(msg.substr(0,5)=='<span')
 				msg = '<img src="ban.png" title="Забанить!" uid="'+msg.substr(11,7)+'" uname="'+msg.substr(20,20).split('<')[0]+'" class="ban"/>'+msg;
-		firstDiv.html(msg);
-		$("#chat").append( firstDiv );
-		firstDiv.show();
-		$("#scroll").tinyscrollbar_update('bottom');
+		
+		if(typeof(pos) != 'undefined'){
+			$("#chat > div").eq(pos).html(msg);
+		}else{
+			var firstDiv = $("#chat > div:first");
+			firstDiv.hide();
+			firstDiv.html(msg);
+			$("#chat").append( firstDiv );
+			firstDiv.show(0,function() { $("#scroll").tinyscrollbar_update('bottom'); });
+		}
 	}
 	
 	var AddMembr = function ( id, name ){
@@ -193,8 +197,9 @@ $(function(){
 				$("#chat > div").each(function() { $(this).empty(); });
 				$('#scroll').tinyscrollbar_update('bottom');
 			break
-			case 'lastmsg':
-				$.each(msg.chatarg, function(index, value) { AddInChat(value); });
+			case 'update':
+				for(var i=0; i<19; i++) AddInChat(msg.chatarg[i], i);
+				AddInChat(msg.chatarg[19]);
 			break
 			case 'deletem':
 				$("#"+msg.id).remove();
@@ -212,7 +217,7 @@ $(function(){
 				$("#linksite").attr('href', msg.link);
 				$("#linksite").html(msg.site);
 				$.each(msg.membrs, function(index, value) { AddMembr(index, value); });
-				$.each(msg.chat, function(index, value) { if(value != '') AddInChat(value); });
+				for(var i=0; i<19; i++) AddInChat(msg.chat[i], i); AddInChat(msg.chat[19]);
 				if($("#player > object").attr('data')!=msg.player){
 					swfobject.embedSWF(msg.player, "plrsrc", "640", "360", "11.0.0", false, {}, { allowfullscreen:'true', allowscriptaccess:'always', allownetworking:'all' });
 				}
