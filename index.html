@@ -2,39 +2,57 @@
 <html>
 	<head>
 		<meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
-		<title>Загрузка...</title>
+		<title>Встречаем Новый ДветысячиТринадцатый год с битардами!</title>
 		<link type="image/x-icon" href="favicon.ico" rel="icon" />
 		<link type="text/css" href="style.css" rel="stylesheet" />
 		<script type="text/javascript" src="jquery.js"></script>
 		<script type="text/javascript" src="scrollbar.js"></script>
 		<script type="text/javascript" src="main.js"></script>
 		<script type="text/javascript" src="swfobject.js"></script>
-		<script type="text/javascript" src="http://pipe.raktv.ru/socket.io/socket.io.js"></script>
+		<!--<script type="text/javascript" src="http://pipe.raktv.ru/socket.io/socket.io.js"></script>-->
 	</head>
-	<body class="lc">
+	<body class="dc">
 		<center>
 			<div id="box">
-				<div id="top_title">
-					<div id="caption" class="lc_cap">
-						<span id="captnm">Загрузка заголовка...</span> <a id="linksite" href="/" target="_blank">Загрузка ссылки...</a>
+				<div id="count" class="dc_count" title="Рачья на сайте">10</div>
+				<div style="padding: 10px 0px; height: 201px;">
+					<div style="float: left; width: 50%;">
+						<div style="text-align: center; margin-right: 110px;"></div>
 					</div>
-					<div id="mystyle">
-						Стиль: <span id="chst" class="lc_a" slasid="0">светлый</span>
+					<div style="float: right; width: 50%;">
+						<div style="margin-left: 110px;"></div>
 					</div>
 					<div class="clear_both"></div>
 				</div>
-				<div id="videochat" class="lc_b">
-					<div id="chatcolor" class="lc_chat_clr">
-						<div id="player"><div id="plrsrc"></div></div>
-						<div>
+				<div id="mystyle" currcl="dc">
+					<div id="dark" namecl="dc" title="Темный стиль"></div>
+					<div id="light" namecl="lc" title="Светлый стиль"></div>
+					<div id="glam" namecl="gc" title="Гламурный стиль"></div>
+					<div class="clear_both"></div>
+				</div>
+				<div id="videochat" class="dc_b">
+					<div id="chatcolor" class="dc_chat_clr">
+						<div id="player">
+							<!--<object type="application/x-shockwave-flash" height="391" width="640" id="live_embed_player_flash" data="http://ru.twitch.tv/widgets/live_embed_player.swf?channel=gomtv" bgcolor="#000000">
+							<param name="allowFullScreen" value="true" />
+							<param name="allowScriptAccess" value="always" />
+							<param name="allowNetworking" value="all" />
+							<param name="movie" value="http://ru.twitch.tv/widgets/live_embed_player.swf" />
+							<param name="wmode" value="opaque" />
+							
+							<param name="flashvars" value="hostname=ru.twitch.tv&channel=gomtv&auto_play=true&start_volume=25" />
+							</object>-->
+							<img src="lol.jpg">
+						</div>
+						<div id="chatzone">
 							<div id="scroll">
-								<div class="scrollbar" ><div class="track"><div class="thumb lc_brdr"><div class="end"></div></div></div></div>
+								<div class="scrollbar" ><div class="track"><div class="thumb dc_brdr"><div class="end"></div></div></div></div>
 								<div class="viewport">
 									<div class="overview">
-										<div id="chat" class="lc_chat">
+										<div id="chat" class="dc_chat">
 											<div></div>
 											<div id="noscr"><p>Для работы сайта нужен JavaScript и современный <a href="http://www.mozilla.org/ru/firefox/new/">БРА</a><a href="http://www.google.com/chrome/">УЗ</a><a href="http://ru.opera.com/">ЕР</a></p></div>
-											<div></div>
+											<div><span>Виталя: </span>Jkjkj</div>
 											<div></div>
 											<div></div>
 											<div></div>
@@ -57,55 +75,71 @@
 									</div>
 								</div>
 							</div>
+							<div style="overflow: hidden; padding: 6px 3px 0 6px;">
+								<div style="float: left;">Ананимус:</div>
+								<div style="overflow: hidden;">
+									<div id="smiles"></div>
+									<div style="overflow: hidden; padding: 1px 5px 0;"><input type="text" id="msgout" value="" autocomplete="off" maxlength="100" spellcheck="false"></div>
+								</div>
+							</div>
+						</div>
+						<div class="clear_both"></div>
+						
+						
+						
+						
 							<div style="overflow: hidden; padding-left: 5px;">
-								<div id="sendmsg" class="lc_brdr">
+								<div id="sendmsg" class="dc_brdr">
 									<div id="smiles"></div>
 									<div style="overflow: hidden;">
 										<input type="text" value="" autocomplete="off" id="msgout" maxlength="100" spellcheck="false" />
 									</div>
 									<div class="clear_both"></div>
 								</div>
-								<div id="sml" class="lc_brdr">
-									<img src="awes.png" title="Радостный" tid=":радость:" />
-									<img src="mmm.png" title="Стесняшка" tid=":стеснение:" />
-									<img src="derp.png" title="Безумный" tid=":безумие:" />
-									<img src="guru.png" title="Игривый" tid=":игривость:" />
-									<img src="ah.png" title="Очарованный" tid=":очарование:" />
-									<img src="win.png" title="Счастливый" tid=":счастье:" />
-									<img src="kawai.png" title="Влюблённый" tid=":влюбленность:" />
-									<img src="wat.png" title="Шокированный" tid=":шок:" />
-									<img src="omg.png" title="Удивленный" tid=":удивление:" />
-									<img src="wtf.png" title="Подозревающий" tid=":подозрение:" />
-									<img src="bad.png" title="Огорченный" tid=":огорчение:" />
-									<img src="yoba.png" title="Удовлетворённый" tid=":удовлетворение:" />
-									<img src="petro.png" title="Шутливый" tid=":шутливость:" />
-									<img src="butt.png" title="Обиженный" tid=":обида:" />
-									<img src="yeah.png" title="Обрадованный" tid=":обрадованность:" />
-									<img src="lol.png" title="Беспечный" tid=":беспечность:" />
-									<img src="fyeah.png" title="Крутой" tid=":крутость:" />
-									<img src="gusta.png" title="Довольный" tid=":довольство:" />
-									<img src="poh.png" title="Пофигист" tid=":пофигизм:" />
-									<img src="why.png" title="Непонятливый" tid=":непонимание:" />
-									<img src="okay.png" title="Смиренный" tid=":смирение:" />
-									<img src="troll.png" title="Хитрый" tid=":хитрость:" />
-									<img src="daaa.png" title="Опытный" tid=":опытность:" />
-									<img src="alone.png" title="Одинокий" tid=":одиночество:" />
-									<img src="rage.png" title="Злой" tid=":злость:" />
-									<img src="pedo.png" title="Детолюбивый" tid=":детолюбство:" />
-									<img src="slou.png" title="Тормознутый" tid=":тормознутось:" />
+								<div id="sml" class="dc_brdr">
+									<img src="awes.png" title="Радостный" tid=":радостный:" />
+									<img src="mmm.png" title="Стесняшка" tid=":стесняшка:" />
+									<img src="derp.png" title="Безумный" tid=":безумный:" />
+									<img src="guru.png" title="Игривый" tid=":игривый:" />
+									<img src="ah.png" title="Очарованный" tid=":очарованный:" />
+									<img src="win.png" title="Счастливый" tid=":счастливый:" />
+									<img src="kawai.png" title="Влюблённый" tid=":влюблённый:" />
+									<img src="wat.png" title="Шокированный" tid=":шокированный:" />
+									<img src="omg.png" title="Удивленный" tid=":удивленный:" />
+									<img src="wtf.png" title="Подозревающий" tid=":подозревающий:" />
+									<img src="bad.png" title="Огорченный" tid=":огорченный:" />
+									<img src="yoba.png" title="Удовлетворённый" tid=":удовлетворённый:" />
+									<img src="petro.png" title="Шутливый" tid=":шутливый:" />
+									<img src="butt.png" title="Обиженный" tid=":обиженный:" />
+									<img src="yeah.png" title="Обрадованный" tid=":обрадованный:" />
+									<img src="lol.png" title="Беспечный" tid=":беспечный:" />
+									<img src="fyeah.png" title="Крутой" tid=":крутой:" />
+									<img src="gusta.png" title="Довольный" tid=":довольный:" />
+									<img src="poh.png" title="Пофигист" tid=":пофигист:" />
+									<img src="why.png" title="Непонятливый" tid=":непонятливый:" />
+									<img src="okay.png" title="Смиренный" tid=":смиренный:" />
+									<img src="troll.png" title="Хитрый" tid=":хитрый:" />
+									<img src="daaa.png" title="Опытный" tid=":опытный:" />
+									<img src="alone.png" title="Одинокий" tid=":одинокий:" />
+									<img src="rage.png" title="Рассерженный" tid=":рассерженный:" />
+									<img src="pedo.png" title="Детолюбивый" tid=":детолюбивый:" />
+									<img src="slou.png" title="Тормознутый" tid=":тормознутый:" />
 								</div>
 							</div>
-						</div>
-						<div class="clear_both"></div>
+						
+						
+						
+						
+						
+						
+						
 					</div>
 				</div>
-				<div id="membersbox" class="lc_b"> 
-					<div id="membrs" class="lc_mmbr"></div>
-					<div class="clear_both"></div>
-				</div>
-				<div id="bot_butt" class="lc_b">
-					<center><div id="shhi" class="lc_brdr">скрыть юзер-панель</div></center>
-				</div>
+			</div>
+			<div style="text-align: center; padding-top: 10px;">
+				<a href="http://vk.com/raktvru" target="_blank" title="Вконтактик"><span id="vk"></span></a>
+				<a href="http://twitter.com/raktvru" target="_blank" title="Твиттер"><span id="tw"></span></a>
+				<a href="http://www.youtube.com/raktvru" target="_blank" title="Ютуб"><span id="yt"></span></a>
 			</div>
 		</center>
 	</body>
