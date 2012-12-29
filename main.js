@@ -29,39 +29,27 @@ $(function(){
 	$("#noscr").remove();
 	var MYID = ""; var MYMOD = 0;
 	
-	var STYLES = [
-		{ 'class':'lc', 'name':'светлый'},
-		{ 'class':'dc', 'name':'темный' },
-		{ 'class':'gc', 'name':'гламур' }
-	];
-	
-	var SetStyle = function ( id ){
-		document.cookie="style="+id+"; domain=raktv.ru; path=/; expires=Mon, 01-Jan-2018 00:00:00 GMT";
-		var currStyle = STYLES[parseInt($("#chst").attr('slasid'))].class;
-		var newStyle = STYLES[id].class;
-		$("."+currStyle).removeClass(currStyle).addClass(newStyle);
-		$("."+currStyle+"_a").removeClass(currStyle+"_a").addClass(newStyle+"_a");
-		$("."+currStyle+"_b").removeClass(currStyle+"_b").addClass(newStyle+"_b");
-		$("."+currStyle+"_brdr").removeClass(currStyle+"_brdr").addClass(newStyle+"_brdr");
-		$("."+currStyle+"_chat").removeClass(currStyle+"_chat").addClass(newStyle+"_chat");
-		$("."+currStyle+"_cap").removeClass(currStyle+"_cap").addClass(newStyle+"_cap");
-		$("."+currStyle+"_mmbr").removeClass(currStyle+"_mmbr").addClass(newStyle+"_mmbr");
-		$("."+currStyle+"_chat_clr").removeClass(currStyle+"_chat_clr").addClass(newStyle+"_chat_clr");
-		$("#chst").html(STYLES[id].name);
-		$("#chst").attr('slasid',id);
+	var SetStyle = function ( style ){
+		document.cookie="style="+style+"; domain=raktv.ru; path=/; expires=Mon, 01-Jan-2018 00:00:00 GMT";
+		var currStyle = $("#mystyle").attr('currcl');
+		$("#mystyle").attr('currcl',style);
+		$("."+currStyle).removeClass(currStyle).addClass(style);
+		$("."+currStyle+"_a").removeClass(currStyle+"_a").addClass(style+"_a");
+		$("."+currStyle+"_b").removeClass(currStyle+"_b").addClass(style+"_b");
+		$("."+currStyle+"_brdr").removeClass(currStyle+"_brdr").addClass(style+"_brdr");
+		$("."+currStyle+"_chat").removeClass(currStyle+"_chat").addClass(style+"_chat");
+		$("."+currStyle+"_cap").removeClass(currStyle+"_cap").addClass(style+"_cap");
+		$("."+currStyle+"_mmbr").removeClass(currStyle+"_mmbr").addClass(style+"_mmbr");
+		$("."+currStyle+"_chat_clr").removeClass(currStyle+"_chat_clr").addClass(style+"_chat_clr");
+		$("."+currStyle+"_count").removeClass(currStyle+"_count").addClass(style+"_count");
 	}
 	
 	if( (typeof(document.cookie) != 'undefined') && (document.cookie.indexOf('style=') != -1) ){
-		SetStyle(parseInt(document.cookie.substr(document.cookie.indexOf('style=')+6,1)));
+		SetStyle(document.cookie.substr(document.cookie.indexOf('style=')+6,2));
 	}
 	
-	$("#chst").bind("click", function(e){
-		var currStyleID = parseInt($(this).attr('slasid'));
-		if( typeof(STYLES[currStyleID+2]) == 'undefined'){
-			SetStyle(0);
-		}else{
-			SetStyle(currStyleID+1);
-		}
+	$("#dark,#light,#glam").bind("click", function(e){
+		SetStyle($(this).attr('namecl'));
 	});
 	
 	$("#shhi").bind("click", function(e){
@@ -83,7 +71,7 @@ $(function(){
 		$("#sml").toggle();
 		$("#msgout").focus();
 	});
-	
+		
 	var find_nick = new RegExp('^\[[a-zA-Zа-яА-ЯеЁ0-9]+\]\,?');
 	
 	$("#membrs span, #chat span").live("click", function(e){
@@ -128,7 +116,7 @@ $(function(){
 			'max reconnection attempts': 30
 		});
 	} catch(e) {
-		AddInChat('<p>Ошибка соединения!<br />'+e.name+': '+e.message+'</p>');
+		AddInChat({'t':0,'i':MYID,'m':('Ошибка соединения!<br />'+e.name+': '+e.message)});
 		$("#msgout").prop('disabled', true);
 	}
 	
@@ -152,20 +140,17 @@ $(function(){
 	socket.on('message', function (msg) {
 		switch(msg.event){
 			case 'newmsg':
-				AddInChat(msg.text);
+				AddInChat(msg.objmsg);
 			break
 			case 'msganswr':
 				$("#msgout").prop('disabled', false);
 				if(msg.status == "error") {
-						AddInChat("<p>Ваше сообщение не отправлено. Детали: "+msg.detail+"</p>");
-						$("#msgout").val(SENDBUFF);
-						$("#msgout").focus();
-				} else if(msg.status == "ok") {
-						AddInChat(msg.text);
-						$("#msgout").val("");
-				}else{
-					AddInChat("<p>Странная ошибка. Попробуйте еще раз.</p>");
+					AddInChat(msg.detail);
 					$("#msgout").val(SENDBUFF);
+					$("#msgout").focus();
+				} else {
+					AddInChat(msg.objmsg);
+					$("#msgout").val("");
 				}
 			break
 			case 'title':
@@ -182,7 +167,7 @@ $(function(){
 				$("#linksite").html(msg.name);
 			break
 			case 'style':
-				SetStyle(parseInt(msg.style));
+				SetStyle(msg.style);
 			break
 			case 'refresh':
 				window.location.reload();
@@ -198,7 +183,10 @@ $(function(){
 				$('#scroll').tinyscrollbar_update('bottom');
 			break
 			case 'update':
-				for(var i=0; i<19; i++) AddInChat(msg.chatarg[i], i);
+				for(var i=0; i<19; i++){
+					$("#chat > div").eq(i).empty();
+					//if() msg.chatarg[i], i);
+				}
 				AddInChat(msg.chatarg[19]);
 			break
 			case 'deletem':
