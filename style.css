@@ -3,20 +3,20 @@ html, body { margin: 0; padding: 0; font-family: Verdana,sans-serif; font-size: 
 #cont{ margin: -10px -11px 0; }
 #membrs span { cursor: pointer; vertical-align: middle; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; -o-user-select: none; }
 #sml img, #chst, #chat span { cursor: pointer; }
-#msgout { padding: 0px; margin: 0px; background: none repeat scroll 0 0 rgba(31, 31, 31, 0.4); z-index: 10; width: 100%; outline: medium none; border: 1px solid rgba(31, 31, 31, 0.4); height: auto; border-radius: 3px 3px 3px 3px; }
+#msgout { padding: 0px; margin: 0px; background: url('data:image/gif;base64,R0lGODlhAQABAID/AMDAwAAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw%3D%3D') repeat scroll 0% 0% transparent; z-index: 10; width: 100%; outline: medium none; border: medium none; height: auto; }
 #top_title { padding: 0px 5px 5px 5px; }
-#videochat { border-radius: 5px; border-style: solid; border-width: 1px; margin: 0; padding: 0; }
+#videochat { border-radius: 5px 5px 0 0; border-style: solid; border-width: 1px 1px 0; margin: 0; padding: 0; }
 #bot_butt { border-radius: 0 0 5px 5px; border-style: solid; border-width: 0 1px 1px; margin: 0; padding: 5px 0 0; text-align:center; }
 #shhi { cursor: pointer; width: 187px;  font-size: 12px; text-decoration: none;  border-radius: 5px 5px 0 0; border-style: solid solid none; border-width: 1px 1px 0; }
-#box { position: relative; text-align:left; max-width: 1200px; min-width: 950px; padding: 0 10px; }
-#player{ float:left; width: 640px; height: 391px; background-color: #333333; background: url('player.png') repeat-x scroll 0% 0% transparent; }
-#chatzone { height: 391px; background: url('player.png') repeat-x scroll 0% 0% transparent; }
+#box { position: relative; text-align:left; max-width: 1200px; min-width: 950px; padding: 10px 10px 0px 10px; }
+#mystyle { float:right; font-size: 13px; line-height: 15px; padding: 0 2px; }
+#player{ float:left; width: 640px; height: 360px; background-color: #333333; }
 #sendmsg { height: 20px; overflow: hidden; border-radius: 5px 5px 5px 5px; border-style: solid; border-width: 1px; margin: 0 5px 0 0; padding: 5px;}
 #chat{ overflow: hidden; word-wrap: break-word; }
 #chat div{ padding: 5px 5px 5px 7px; }
 #chat p{ color: darkred; padding: 0; margin: 0; }
 #chat img{ padding: 0px 2px 0px 2px; }
-#chatcolor { margin: 10px; height: 391px; }
+#chatcolor { margin: 10px 10px 0; height: 360px; }
 #caption { float: left; font-size: 1.2em; font-weight: bold; }
 #caption a { font-size: 12px; text-decoration: none; margin-left: 20px; font-weight: normal;}
 #membrs { padding: 0 10px;}
@@ -25,16 +25,10 @@ html, body { margin: 0; padding: 0; font-family: Verdana,sans-serif; font-size: 
 #membersbox { border-style: solid; border-width: 0px 1px 0px 1px; padding-top: 10px; }
 #sml { display: none; overflow: hidden; position: relative; border-radius: 0 0 5px 5px; border-style: solid; border-width: 0 1px 1px; margin: -5px 5px 0 0; padding: 5px; text-align: center; }
 #golos { /*display: none;*/ overflow: hidden; position: relative; top: -352px; margin: 0 20px 0 0; padding: 5px; }
-#mystyle { height: 10px; }
-#dark  { cursor: pointer; float: right; height: 15px; width: 15px; margin: -12px 0 0; background-color: rgba(31, 31, 31, 0.4); border: 1px solid rgba(31, 31, 31, 0.3); }
-#light { cursor: pointer; float: right; height: 15px; width: 15px; margin: -12px 5px 0 0; background-color: rgba(255, 255, 255, 0.5); border: 1px solid rgba(255, 255, 255, 0.2); }
-#glam { display: none; cursor: pointer; float: right; height: 15px; width: 15px; margin: -12px 5px 0 0; background-color: rgba(255, 0, 174, 0.2); border: 1px solid rgba(255, 240, 240, 0.3); }
-#count { height: 211px; width: 211px; position: absolute; left: 50%; margin-left: -105px; top: 10px; text-align: center; font-size: 70px; line-height: 207px; cursor: default; }
 .ban { cursor: pointer; bottom: 2px; right: 2px;  position: relative; vertical-align: middle; }
 .clear_both { clear: both; }
-.lc { background: url('lc_bg.jpg') repeat scroll 50% 0 transparent; background-color: #c4c4c4; color: #333333; }
-.lc_count { background: url('lc_count.png') no-repeat scroll 0% 0% transparent; color: #CCCCCC;}
-.lc_b { background-color: rgba(221, 221, 221, 0.698); border-color: #CCCCCC; }
+.lc { background-color: #EEEEEE; color: #333333; }
+.lc_b { background-color: #DDDDDD; border-color: #CCCCCC; }
 .lc a, .lc_a { color: #FF6600; }
 .lc_brdr { color: #666666; background-color: #d5d5d5; border-color: #CCCCCC; }
 .lc_brdr img, .lc_chat img { opacity: 1; }
@@ -43,9 +37,8 @@ html, body { margin: 0; padding: 0; font-family: Verdana,sans-serif; font-size: 
 .lc_mmbr span{ color: #666666; text-shadow: 0 -1px 0 rgba(70, 70, 70, 0.25); background-color: #D5D5D5; border-color: #CCCCCC; }
 .lc_mmbr .itsmy { border-color: #999999 !important; cursor: default !important; }
 .lc_chat_clr { background-color: #CCCCCC; }
-.dc { background: url('dc_bg.jpg') repeat scroll 50% 0 transparent;  background-color: #3c3c3c; color: #AAAAAA; }
-.dc_count { background: url('dc_count.png') no-repeat scroll 0% 0% transparent; color: #333333;}
-.dc_b { background-color: rgba(31, 31, 31, 0.698); border-color: #333333; }
+.dc { background-color: #2a2a2a; color: #AAAAAA; }
+.dc_b { background-color: #1f1f1f; border-color: #333333; }
 .dc a, .dc_a { color: #C9BE89; }
 .dc_brdr { color: #666666; background-color: #1d1d1d; border-color: #333333; }
 .dc_brdr img, .dc_chat img  { opacity: 0.5; }
@@ -65,17 +58,11 @@ html, body { margin: 0; padding: 0; font-family: Verdana,sans-serif; font-size: 
 .gc_mmbr .itsmy { cursor: default !important; border-color: #ff00d2 !important; color: #ff00d2 !important; }
 .gc_chat_clr { background-color: rgba(255, 255, 255, 0.6); }
 
-#scroll { margin: 0; overflow: hidden; height: 360px; word-wrap: break-word; }
-#scroll .viewport { height: 360px; overflow: hidden; position: relative; }
+#scroll { margin: 0; overflow: hidden; height: 315px; padding: 5px 0px 5px 0px; word-wrap: break-word; }
+#scroll .viewport { height: 315px; overflow: hidden; position: relative; }
 #scroll .overview { list-style: none; position: relative; left: 0; top: 0; padding: 0; margin: 0; }
 #scroll .scrollbar{  float: right; width: 15px; }
 #scroll .track { height: 100%; width:15px; position: relative; }
 #scroll .thumb { border-radius: 3px 3px 3px 3px; border-style: solid; border-width: 1px; height: 20px; width: 12px; cursor: pointer; overflow: hidden; position: absolute; top: 0; left: -5px; }
 #scroll .thumb .end { overflow: hidden; height: 5px; width: 12px; }
 #scroll .disable { display: none; }
-#vk { width: 48px; height: 48px; display: inline-block; background: url('vk.png') no-repeat scroll 0% 0% transparent; }
-#vk:hover { width: 64px; height: 64px; background: url('vk_h.png') no-repeat scroll 0% 0% transparent; }
-#tw { width: 48px; height: 48px; display: inline-block; background: url('tw.png') no-repeat scroll 0% 0% transparent; }
-#tw:hover { width: 64px; height: 64px; background: url('tw_h.png') no-repeat scroll 0% 0% transparent; }
-#yt { width: 48px; height: 48px; display: inline-block; background: url('yt.png') no-repeat scroll 0% 0% transparent; }
-#yt:hover { width: 64px; height: 64px; background: url('yt_h.png') no-repeat scroll 0% 0% transparent; }
