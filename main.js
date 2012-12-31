@@ -134,7 +134,7 @@ $(function(){
 	socket.on('message', function (msg) {
 		switch(msg.event){
 			case 'newmsg':
-				AddInChat(msg.objmsg);
+				AddInChat(msg.text);
 			break
 			case 'msganswr':
 				$("#msgout").prop('disabled', false);
@@ -143,7 +143,7 @@ $(function(){
 					$("#msgout").val(SENDBUFF);
 					$("#msgout").focus();
 				} else {
-					AddInChat(msg.objmsg);
+					AddInChat(msg.text);
 					$("#msgout").val("");
 				}
 			break
