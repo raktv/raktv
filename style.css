@@ -1,5 +1,5 @@
 @charset "utf-8";
-html, body { margin: 0; padding: 0; font-family: Verdana,sans-serif; font-size: 1em; }
+html, body { margin: 0; padding: 0; font-family: Verdana,sans-serif; font-size: 14px; }
 #cont{ margin: -10px -11px 0; }
 #membrs span { cursor: pointer; vertical-align: middle; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; -o-user-select: none; }
 #sml img, #chst, #chat span { cursor: pointer; }
