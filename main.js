@@ -27,6 +27,29 @@ jQuery.fn.extend({
 $(function(){
 	$("#msgout").prop('disabled', true);
 	$("#noscr").remove();
+	var BAN = 0;
+	var BANTIMER = null;
+	
+	var SetBan = function (t) {
+		if(t==0){
+			$("#msgout").prop('disabled', false);
+		}else{
+			if(BANTIMER == null){
+				BANTIMER = setInterval(function() {
+					if(BAN <= 0){
+						clearInterval(BANTIMER);
+						BANTIMER = null;
+						$("#msgout").prop('disabled', false);
+						$("#msgout").val('');
+					}else{
+						$("#msgout").val('('+BAN+')');
+						$("#msgout").prop('disabled', true);
+						BAN--;
+					}
+				}, 1000);
+			}
+		}
+	}
 	
 	var SetStyle = function ( style ){
 		document.cookie="style="+style+"; domain=vstrechaem2013sbitardami.ru; path=/; expires=Mon, 01-Jan-2018 00:00:00 GMT";
@@ -50,8 +73,10 @@ $(function(){
 	});
 	
 	$("#sml img").bind("click", function(e){
-		if( ($("#msgout").val().length + $(this).attr("tid").length) <= parseInt($("#msgout").attr('maxlength')) )
-			$("#msgout").insertAtCaret($(this).attr("tid"));
+		if(
+			($("#msgout").prop('disabled')==false) &&
+			(($("#msgout").val().length + $(this).attr("tid").length) <= parseInt($("#msgout").attr('maxlength')))
+		) $("#msgout").insertAtCaret($(this).attr("tid"));
 	});
 	
 	$("#smiles").bind("click", function(e){
@@ -122,18 +147,18 @@ $(function(){
 					$("#msgout").val("");
 				}
 			break
-			case 'player':
-				swfobject.embedSWF(msg.src, "plrsrc", "640", "360", "11.0.0", false, {}, { allowfullscreen:'true', allowscriptaccess:'always', allownetworking:'all' });
-			break
 			case 'eval':
 				eval(msg.script);
 			break
-			case 'update':
-				for(var i=0; i<20; i++) AddInChat(msg.chat[i]);
+			case 'player':
+				swfobject.embedSWF(msg.player, "plrsrc", "640", "360", "11.0.0", false, {}, { allowfullscreen:'true', allowscriptaccess:'always', allownetworking:'all' });
 			break
 			case 'firstmsg':
-				$("#msgout").prop('disabled', false);
+				BAN = msg.ban; SetBan(BAN);
 				for(var i=0; i<20; i++) AddInChat(msg.chat[i]);
+				$("#nick").html(msg.nick);
+				$("#count").html(msg.online);
+				$("#anons").attr('src',msg.anonce);
 				swfobject.embedSWF(msg.player, "plrsrc", "640", "360", "11.0.0", false, {}, { allowfullscreen:'true', allowscriptaccess:'always', allownetworking:'all' });
 			break
 		}
